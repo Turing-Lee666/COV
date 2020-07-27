@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>my page</title>
+    <script src="../static/js/jquery-1.11.1.min.js"></script>  // 引入一个js文件  之后就可以在页面里面使用jquery了
+</head>
+<body>
+<h1> 疫情追踪</h1>
+<h3> 实时报道</h3>
+<button>点我有惊喜</button>
+<script>  // 这个script标签里面就来写js代码  这个js代码是用来发送ajax请求的
+    $("button").click(function () {  // $("button")表示选中了button这个按钮这个元素  click()事件  触发  function(){}匿名函数
+        // 匿名函数里面发送ajax请求
+        $.ajax({
+            url:"/ajax",  // 访问后台上的/ajax
+            type:"post",
+            data:{"name":"李四","score":99},  // 给后台发送的数据
+
+            // 请求成功的回调函数  那么成功的时候会收到后台发过来的数据，用d来表示接收到的数据
+            success:function (d) {
+                /* 在成功的回调里面执行  按钮点下之后，把h1标签里面的内容给替换掉
+                $("h1")表示用选择器选中h1标签
+                jquery的语法：替换掉里面的内容可以直接使用html()
+                 */
+                $("h1").html("武汉感染人数："+d)
+            },error:function () {  // 请求失败时候的一个回调函数
+                alert("发送ajax请求失败")  // 请求失败了就弹出一个报警
+            }
+        })
+    })
+</script>
+</body>
+</html>
